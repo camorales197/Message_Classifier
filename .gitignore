@@ -1,0 +1,5 @@
+/venv/
+/README.pdf
+.DS_Store
+.idea/
+dataset/
