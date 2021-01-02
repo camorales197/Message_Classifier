@@ -7,14 +7,13 @@ LABEL maintainer="Descript data <tyson@descriptdata.com>"
 USER $NB_UID
 
 # Install Python 3 NLP packages
-RUN pip install spacy pandas-profiling xgboost keras nltk
+RUN pip install nltk
 RUN conda install --quiet --yes \
 	'nltk=3.4.*' \
 	'gensim=3.8.*' \
 	&& \
     conda clean --all -f -y
 
-RUN python -c "import nltk; nltk.download('wordnet')"
-RUN python -m spacy download en_core_web_lg
+RUN python -c "import nltk; nltk.download('popular')"
 
 WORKDIR work
