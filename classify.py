@@ -11,17 +11,22 @@ from sklearn.metrics import classification_report, confusion_matrix, accuracy_sc
 from sklearn.pipeline import Pipeline
 from sklearn.svm import SVC
 import joblib
-from utils import read_files
+from utils import read_files, TextPreprocessor
+import nltk
+nltk.download('stopwords')
+nltk.download('wordnet')
+
 
 
 
 model = sys.argv[1]
 print("The model is ", model)
 files_list = sys.argv[2:]
-print("The path to the file/s is/are: ", files)
+print("The path to the file/s is/are: ", files_list)
 
-model = joblib.load(model)
-pipeline_tranform_data = joblib.load("pipeline_tranform_data.pkl")
+model = joblib.load('model.pkl')
+
+pipeline_tranform_data = joblib.load('pipeline_tranform_data.pkl')
 
 files_content_list = []
 
@@ -31,8 +36,8 @@ for file_path in files_list:
     df_files_content = pd.DataFrame(files_content_list, columns=['Text'])
 
 
-X = df["Text"]
-X_vector = pd.DataFrame(pipeline_tranform_data.fit_transform(X))
+X = df_files_content["Text"]
+X_vector = pipeline_tranform_data.fit_transform(X)
 
 y = model.predict(X_vector)
 
